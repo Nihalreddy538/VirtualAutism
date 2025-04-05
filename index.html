@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Autism Awareness</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .hero-section {
+            background-color: #ebf8ff;
+            padding: 2.5rem 0;
+        }
+        .section {
+            padding: 2.5rem 0;
+        }
+        .section-alt {
+            background-color: #ebf8ff;
+            padding: 2.5rem 0;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            padding: 1rem;
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.375rem;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .faq-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .faq-question {
+            background-color: #ebf8ff;
+            padding: 1rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .faq-answer {
+            padding: 1rem;
+            display: none;
+        }
+        .faq-answer.active {
+            display: block;
+        }
+        /* Theme dropdown styles */
+        .theme-option {
+            transition: background-color 0.2s;
+        }
+        .theme-option:hover {
+            background-color: #f3f4f6;
+        }
+        .theme-option:active {
+            background-color: #e5e7eb;
+        }
+        /* Dark mode styles for dropdown */
+        .dark .theme-dropdown {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        .dark .theme-option {
+            color: #e5e7eb;
+        }
+        .dark .theme-option:hover {
+            background-color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 w-full border-b bg-white">
+        <div class="container flex h-16 items-center justify-between">
+            <a href="#" class="font-bold text-xl">Virtual Autism Awareness</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#what-is" class="hover:text-blue-500" data-page-id="WHAT_IS">What is Virtual Autism</a>
+                <a href="#symptoms" class="hover:text-blue-500" data-page-id="SYMPTOMS">Symptoms</a>
+                <a href="#checker" class="hover:text-blue-500" data-page-id="CHECKER">Symptoms Checker</a>
+                <a href="#chatbot" class="hover:text-blue-500" data-page-id="CHATBOT">AI Health Bot</a>
+                <a href="#solutions" class="hover:text-blue-500" data-page-id="SOLUTIONS">Solutions</a>
+                <a href="#articles" class="hover:text-blue-500" data-page-id="ARTICLES">Articles</a>
+                <a href="#faq" class="hover:text-blue-500" data-page-id="FAQ">FAQ</a>
+                <div class="relative">
+    <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+    </button>
+    <div id="theme-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden">
+        <button class="theme-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" data-theme="light">
+            <div class="flex items-center">
+                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                Light
+            </div>
+        </button>
+        <button class="theme-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" data-theme="dark">
+            <div class="flex items-center">
+                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                Dark
+            </div>
+        </button>
+        <button class="theme-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" data-theme="system">
+            <div class="flex items-center">
+                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                System
+            </div>
+        </button>
+    </div>
+</div>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <div class="flex md:hidden items-center gap-4">
+                <div class="relative">
+    <button id="theme-toggle-mobile" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+    </button>
+    <div id="theme-dropdown-mobile" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden">
+        <button class="theme-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" data-theme="light">
+            <div class="flex items-center">
+                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                Light
+            </div>
+        </button>
+        <button class="theme-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" data-theme="dark">
+            <div class="flex items-center">
+                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                Dark
+            </div>
+        </button>
+        <button class="theme-option block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left" data-theme="system">
+            <div class="flex items-center">
+                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                System
+            </div>
+        </button>
+    </div>
+</div>
+                <button id="mobile-menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="md:hidden bg-white p-4 border-b hidden">
+            <div class="flex flex-col space-y-4">
+                <a href="#what-is" data-page-id="WHAT_IS">What is Virtual Autism</a>
+                <a href="#symptoms" data-page-id="SYMPTOMS">Symptoms</a>
+                <a href="#checker" data-page-id="CHECKER">Symptoms Checker</a>
+                <a href="#chatbot" data-page-id="CHATBOT">AI Health Bot</a>
+                <a href="#solutions" data-page-id="SOLUTIONS">Solutions</a>
+                <a href="#articles" data-page-id="ARTICLES">Articles</a>
+                <a href="#faq" data-page-id="FAQ">FAQ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4">Virtual Autism Awareness</h1>
+                    <p class="text-lg mb-6">
+                        Learn about how too much screen time can affect children's development and what you can do to help.
+                    </p>
+                    <a href="#what-is" class="btn-primary" data-page-id="WHAT_IS">
+                        Learn More
+                    </a>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hoVBMheTff21m6ikempD3OG2xGtO1N.png" 
+                         alt="Child using smartphone" 
+                         class="rounded-lg shadow-md w-full max-w-md mx-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Is Section -->
+    <section id="what-is" class="section">
+        <div class="container">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">What is Virtual Autism?</h2>
+
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1535572290543-960a8046f5af?q=80&w=1000" 
+                         alt="Child with tablet" 
+                         class="rounded-lg shadow-md w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="mb-4">
+                        Virtual autism is when children show autism-like behaviors because they spend too much time on screens
+                        (phones, tablets, TVs) and not enough time interacting with real people.
+                    </p>
+                    <p class="mb-4">
+                        It's not an official medical diagnosis, but many doctors and researchers have noticed that some children
+                        who spend a lot of time on screens develop problems with communication, social skills, and behavior.
+                    </p>
+                    <p>
+                        The good news is that many children show improvement when screen time is reduced and they spend more time
+                        playing and talking with others.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold text-xl mb-2">Important to Know:</h3>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Virtual autism is different from autism spectrum disorder (ASD)</li>
+                    <li>Children under 3 years old are most at risk</li>
+                    <li>Symptoms can improve when screen time is reduced</li>
+                    <li>Face-to-face interaction is important for brain development</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Symptoms Section -->
+    <section id="symptoms" class="section-alt">
+        <div class="container">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Signs and Symptoms</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="text-xl font-bold mb-3 text-blue-500">Communication Problems</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Delayed speech or not talking at all</li>
+                        <li>Repeating words from TV shows instead of having conversations</li>
+                        <li>Not responding when called by name</li>
+                        <li>Avoiding eye contact</li>
+                        <li>Difficulty expressing needs or wants</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-bold mb-3 text-blue-500">Social Interaction Issues</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Not interested in playing with other children</li>
+                        <li>Prefers to play alone</li>
+                        <li>Doesn't share enjoyment or interests with others</li>
+                        <li>Difficulty understanding feelings or facial expressions</li>
+                        <li>Doesn't engage in pretend play</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-bold mb-3 text-blue-500">Behavior Patterns</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Repetitive movements like hand-flapping or rocking</li>
+                        <li>Gets very upset when screen time ends</li>
+                        <li>Strong attachment to electronic devices</li>
+                        <li>Prefers screens over toys or people</li>
+                        <li>Difficulty transitioning between activities</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-bold mb-3 text-blue-500">Screen-Related Behaviors</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Intense focus on screens for long periods</li>
+                        <li>Tantrums when devices are taken away</li>
+                        <li>Calms down only when given a screen</li>
+                        <li>Watches the same videos repeatedly</li>
+                        <li>Seems "in their own world" when using screens</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-yellow-50 p-4 rounded-lg">
+                <p class="font-bold">
+                    If you notice these signs in your child, it doesn't automatically mean they have autism. Talk to your doctor
+                    about your concerns and consider reducing screen time to see if behaviors improve.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="section">
+        <div class="container">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Research & Resources</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <a href="#" class="article-link" data-link-type="RESEARCH_LINKS" data-link-id="SCREEN_TIME_AUTISM_STUDY">
+                    <div class="card hover:shadow-md transition-shadow">
+                        <h3 class="text-lg font-bold mb-2">Screen Time and Autism Spectrum Disorder-Like Symptoms</h3>
+                        <p class="text-sm text-gray-500">Published in Pediatrics Journal</p>
+                        <p class="mt-2 text-sm">Research examining the relationship between screen time in young children and the development of autism-like symptoms.</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="article-link" data-link-type="RESEARCH_LINKS" data-link-id="DIGITAL_MEDIA_EXPOSURE">
+                    <div class="card hover:shadow-md transition-shadow">
+                        <h3 class="text-lg font-bold mb-2">Digital Media Exposure in Early Childhood</h3>
+                        <p class="text-sm text-gray-500">Published in JAMA Pediatrics</p>
+                        <p class="mt-2 text-sm">Study on how increased screen time affects developmental outcomes in children ages 2-5.</p>
+                    </div>
+                </a>
+            </div>
+            
+            <h3 class="text-xl font-bold mt-8 mb-4 text-center">Recommended Organizations</h3>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="org-link px-4 py-2 bg-blue-50 rounded-lg hover:bg-blue-100" data-org-id="AAP">American Academy of Pediatrics</a>
+                <a href="#" class="org-link px-4 py-2 bg-blue-50 rounded-lg hover:bg-blue-100" data-org-id="WHO">World Health Organization</a>
+                <a href="#" class="org-link px-4 py-2 bg-blue-50 rounded-lg hover:bg-blue-100" data-org-id="CDC">CDC Child Development</a>
+                <a href="#" class="org-link px-4 py-2 bg-blue-50 rounded-lg hover:bg-blue-100" data-org-id="ZERO_TO_THREE">Zero to Three</a>
+                <a href="#" class="org-link px-4 py-2 bg-blue-50 rounded-lg hover:bg-blue-100" data-org-id="COMMON_SENSE_MEDIA">Common Sense Media</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-100 py-6">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="text-lg font-bold mb-4">Virtual Autism Awareness</h3>
+                <p class="mb-4">
+                    This website was created to raise awareness about virtual autism and the effects of screen time
+                    on children.
+                </p>
+                <p class="text-sm text-gray-600">
+                    © <span id="current-year">2023</span> Virtual Autism Awareness Project. All information is for educational purposes only.
+                </p>
+            </div>
+
+            <div class="mt-6 flex justify-center space-x-4">
+                <a href="#" class="text-blue-500 hover:underline" data-page-id="CONTACT">Contact Us</a>
+                <a href="#" class="text-blue-500 hover:underline" data-page-id="PRIVACY">Privacy Policy</a>
+                <a href="#" class="text-blue-500 hover:underline" data-page-id="ABOUT">About Us</a>
+            </div>
+            
+            <div class="mt-6 flex justify-center space-x-4">
+                <a href="#" class="text-blue-500 hover:underline" data-link-type="SOCIAL_LINKS" data-link-id="FACEBOOK">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="#" class="text-blue-500 hover:underline" data-link-type="SOCIAL_LINKS" data-link-id="TWITTER">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                </a>
+                <a href="#" class="text-blue-500 hover:underline" data-link-type="SOCIAL_LINKS" data-link-id="INSTAGRAM">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="#" class="text-blue-500 hover:underline" data-link-type="SOCIAL_LINKS" data-link-id="YOUTUBE">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="scripts/links.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+
